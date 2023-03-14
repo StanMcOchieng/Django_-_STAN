@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <title>CRUD</title>
+</head>
+<body>
+<h1>Stanflix photography</h1>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-md">
+          <a class="navbar-brand" href="/">Welcome: {{request.user}}</a>
+
+
+          <a class="navbar-brand" href="/logout">Logout</a>
+        </div>
+      </nav>
+
+
+      <div class="container mt-5">
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Create Data</h2>
+                <br>
+
+                <form action="/insert" method="post">{% csrf_token %}
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" class="form-control  mt-2" placeholder="Email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" class="form-control  mt-2" placeholder="Age" name="age" required>
+
+                    </div>
+
+
+                    <div class="form-group mt-2">
+                        <select id="gender" name="gender" class="form-control" required>
+                            <option selected>select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2">
+
+                        <button class="btn btn-success mt-2" type="submit">Insert</button>
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div class="col-md-8">
+                <h2>View Data</h2>
+                <table class="table table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+
+                      </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+
+                    {% for d in data %}
+                      <tr>
+                        <th scope="row">{{d.id}}</th>
+                        <td>{{d.name}}</td>
+                        <td>{{d.email}}</td>
+                        <td>{{d.age}}</td>
+                        <td>{{d.gender}}</td>
+                        <td><a href="/update/{{d.id}}" type="button" class="btn btn-outline-warning">Edit</a></td>
+                        <td><a href="/delete/{{d.id}}" type="button" class="btn btn-outline-danger">Delete</a></td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+
+
+            </div>
+        </div>
+
+      </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+</body>
+</html>
